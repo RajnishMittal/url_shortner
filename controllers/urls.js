@@ -3,14 +3,22 @@ const urlModel = require("../model/url")
 
 async function generateUrl(req, res) {
     const body = req.body
-    if (!body.url) return res.status(404).json({ "status": "pending" })
-    const shortID = nanoid(8)
+    const urlz = body.url
+    if (!urlz) return res.status(400).json({ "status": "pending" })
+    if(await urlModel.findOne({
+        redirectURL: urlz
+    })) return res.status(400).json({ "status": "Same URL already exists" }) 
+    if (!urlz.startsWith("https://")) return res.status(400).json({ error: "URL must start with https://" })
+    
+    const shortID = nanoid(5)
     const result = await urlModel.create({
         shortId: shortID,
         redirectURL: body.url,
         visitHistory: [],
     })
-    return res.json({ id: shortID })
+    return res.render("home", {
+        id:shortID
+    })
 }
 
 async function shortenedUrl(req, res){
