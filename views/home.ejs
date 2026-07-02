@@ -15,12 +15,17 @@
                 <input type="text" name="url" placeholder="https://example.com/long-url-here" />
                 <button type="submit">Shorten</button>
             </form>
+            <% if (locals.error) { %>
+                    <div class="error"><%= error %></div>
+                <% } %>
             <% if (locals.id) { %>
                 <div class="result">
                     Short URL &rarr; <a target="_blank" href="/url/<%= id %>">http://localhost:8001/url/<%= id %></a>
                 </div>
             <% } %>
         </div>
+
+        <p>Logged in as: <%= locals.user ? user.email : "unknown" %></p>
 
         <% if (locals.urls && urls.length > 0) { %>
         <table>

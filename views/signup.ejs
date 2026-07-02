@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="auth-wrap">
+        <div class="auth-card">
+            <h1>Sign Up</h1>
+            <div>
+                <form action="/user" method="POST">
+                    <label for="name">Name</label>
+                    <input type="text" name="name">
+                    <label for="email">Email Id</label>
+                    <input type="text" name="email">
+                    <label for="password">Password</label>
+                    <input type="text" name="password">
+                    <% if (locals.error) { %>
+                    <div class="error"><%= error %></div>
+                <% } %>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
