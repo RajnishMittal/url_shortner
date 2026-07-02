@@ -1,59 +1,95 @@
-URL Shortener
+# 🔗 URL Shortener
 
-A simple URL shortener built with Node.js, Express, and MongoDB.
+A full-stack URL shortener built with Node.js, Express, MongoDB, and EJS — with user authentication and session management.
 
-Features
+## ✨ Features
 
+- 🔐 User signup and login with session-based authentication
+- 🔗 Generate short URLs from long ones
+- 🚀 Redirect to original URL via short link
+- 📊 Track visit history with timestamps
+- 👤 Each user sees only their own URLs
+- 🎨 Dark themed UI with ambient glow
 
-Generate short URLs from long ones
-Redirect to original URL via short link
-Track visit history with timestamps
+## 🛠 Tech Stack
 
+- **Backend:** Node.js, Express
+- **Database:** MongoDB, Mongoose
+- **Templating:** EJS
+- **Auth:** UUID-based session management with cookies
+- **Styling:** Custom dark CSS
 
-Tech Stack
+## 🚀 Getting Started
 
+### Prerequisites
 
-Backend: Node.js, Express
-Database: MongoDB, Mongoose
+- Node.js installed
+- MongoDB running locally
 
+### Installation
 
-Getting Started
-
-Prerequisites
-
-
-Node.js installed
-MongoDB running locally
-
-
-Installation
-
-bashgit clone https://github.com/RajnishMittal/url_shortner.git
+```bash
+git clone https://github.com/RajnishMittal/url_shortner.git
 cd url_shortner
 npm install
+```
 
-Run
+### Run
 
-bashnode index.js
+```bash
+node index.js
+```
 
-Server starts at http://localhost:8001
+Server starts at **http://localhost:8001**
 
-API
+## 📌 Routes
 
-MethodEndpointDescriptionPOST/urlGenerate a short URLGET/url/:shortIdRedirect to original URL
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | / | Homepage with URL list |
+| GET | /signup | Signup page |
+| GET | /login | Login page |
+| POST | /user | Register new user |
+| POST | /user/login | Login user |
+| POST | /url | Generate a short URL |
+| GET | /url/:shortId | Redirect to original URL |
+| GET | /url/analytics/:shortId | Get click analytics |
 
-Generate Short URL
+## 📬 Example
 
+### Generate Short URL
 POST /url
+Body: url = https://www.youtube.com
 
-Body (x-www-form-urlencoded):
-
-url = https://www.youtube.com
-
-Response:
-
-json{ "shortId": "XNjcErY0" }
-
-Redirect
-
+### Redirect
 GET /url/XNjcErY0 → redirects to https://www.youtube.com
+
+### Analytics
+GET /url/analytics/XNjcErY0
+→ { "Total_Clicks": 5, "Analytics": [...] }
+
+## 📁 Project Structure
+project_1/
+├── controllers/
+│   ├── urls.js
+│   └── user.js
+├── middleware/
+│   └── auth.js
+├── model/
+│   ├── url.js
+│   └── user.js
+├── public/
+│   └── style.css
+├── routes/
+│   ├── staticUrl.js
+│   ├── url.js
+│   └── user.js
+├── services/
+│   └── auth.js
+├── views/
+│   ├── home.ejs
+│   ├── login.ejs
+│   └── signup.ejs
+├── connection.js
+└── index.js
+
