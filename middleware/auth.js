@@ -1,18 +1,35 @@
 const { getUser } = require("../services/auth")
 
-async function restrictToLoggedIn(req, res, next) {
-    const sessionId = req.cookies.uid
-    console.log("sessionId from cookie:", sessionId)  // add this
-    console.log("user from map:", getUser(sessionId))  // add this
-    if (!sessionId) return res.redirect("/login")
+function restrictToLoggedIn(req, res, next) {
+    const token = req.cookies.uid
+    if (!token) {
+        res.setHeader("Cache-Control", "no-store")
+        return res.redirect("/login")
+    }
+    try {
+        const user = getUser(token)
+        req.user = user
+        res.setHeader("Cache-Control", "no-store")
+        next()
+    } catch (err) {
+        return res.redirect("/login")
+    }
+}
 
-    const user = getUser(sessionId)
-    if (!user) return res.redirect("/login")
-
-    req.user = user
-    next()
+function restrictToUser(roles = []) {
+    return function(req, res, next) {
+        try {
+            if(!req.user) return res.redirect("/login")
+            if (!roles.includes(req.user.role)) return res.end("Unauthorized" )
+            return next()
+        }
+        catch (err) {
+            return res.redirect("/login")
+        }
+    }
 }
 
 module.exports = {
-    restrictToLoggedIn
+    restrictToLoggedIn,
+    restrictToUser
 }

@@ -14,6 +14,10 @@ const userScehma = new mongoose.Schema({
         type: String,
         required: true,
     },
+    role:{
+        type: String,
+        default: "normal"
+    }
 
 }, {timestamps: true})
 

@@ -2,8 +2,6 @@ const { nanoid } = require("nanoid")
 const urlModel = require("../model/url")
 
 async function generateUrl(req, res) {
-    console.log("req.user:", req.user)
-    console.log("createdBy:", req.user._id) 
     const body = req.body
     const urlz = body.url
     if (!urlz) return res.status(400).json({ error: "pending" })

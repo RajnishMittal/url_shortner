@@ -10,6 +10,9 @@ async function userSignup(req, res){
             error: "Empty input box"
         })
     }
+    if( await userModel.findOne({
+        email
+    })) return res.render("signup", { error: "user already exists" })
 
     await userModel.create({ name, email, password })
     return res.redirect("/login")
@@ -24,15 +27,13 @@ async function userLogin(req, res) {
     const user = await userModel.findOne({ email, password })
     
     if (user) {
-        const sessionId = uuidv4();
-        setUser(sessionId, user)
-        res.cookie("uid", sessionId)
+        const token = setUser(user)
+        res.cookie("uid", token)
         return res.redirect("/")
     } else {
         return res.render("login", { error: "Invalid Username or Password" })
     }
 }
-
 module.exports = {
     userSignup,
     userLogin

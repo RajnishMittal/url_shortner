@@ -11,7 +11,6 @@ body {
     min-height: 100vh;
 }
 
-/* ambient glow background */
 body::before {
     content: '';
     position: fixed;
@@ -333,4 +332,22 @@ code {
 
 .auth-link a:hover {
     text-decoration: underline;
+}
+
+.logout {
+    display: inline-block;
+    margin: 10px 0;
+    padding: 6px 16px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(239, 68, 68, 0.1);
+    color: #f87171;
+    font-size: 13px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.logout:hover {
+    background: rgba(239, 68, 68, 0.2);
 }

@@ -26,6 +26,7 @@
         </div>
 
         <p>Logged in as: <%= locals.user ? user.email : "unknown" %></p>
+        <a href="/user/logout" class="logout">Logout</a>
 
         <% if (locals.urls && urls.length > 0) { %>
         <table>

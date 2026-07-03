@@ -9,7 +9,7 @@ const urlRoute = require("./routes/url")
 const staticRoute = require("./routes/staticUrl")
 const userRoute = require("./routes/user")
 
-const { restrictToLoggedIn } = require("./middleware/auth")
+const { restrictToLoggedIn, restrictToUser } = require("./middleware/auth")
 
 const app = express()
 
